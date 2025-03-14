@@ -22,7 +22,8 @@ def criar_usuario(email, nome, senha):
     
     try:
         # PREENCHA AQUI - QUAL O COMANDO CRIAR UM NOVO USUÁRIO
-        cursor.execute('DIGITE AQUI O COMANDO PARA INSERIR UM NOVO USUÁRIO')
+        cursor.execute('insert into usuarios(email, nome, senha) values (?, ?, ?)', 
+                       (email, nome, senha))
         conexao.commit()
         return True
     except sqlite3.IntegrityError:
@@ -57,14 +58,8 @@ def buscar_viagens(id_usuario):
 
 if __name__ == '__main__': 
     conexao = conectar_banco()
-    cursos = conexao.cursor()
-    usuarios = cursos.execute("select * from projetos_de_viagem where id_usuario = ?",("Gustavo@gmail.com"))
-    for linha in cursos.fetchall():
-        print (linha)
-    # criar_projeto('Gustavo@gmail.com', 'Parana', '23/12/2026', 'Não começou', 'imagem.png',300 ,150)
-    # criar_projeto('Gustavo@gmail.com', 'Paris', '19/08/2026', 'Não começou', 'imagem.png',5000 ,3000)
-    # criar_projeto('geovani@gmail.com', 'Paris', '19/08/2026', 'Não começou', 'imagem.png',5000 ,3000)
-
+    criar_tabelas ()
+    
 
     
 
