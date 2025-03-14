@@ -31,6 +31,22 @@ def criar_usuario(email, nome, senha):
     finally:
         conexao.close()
 
+def deletar_usuario(email):
+    
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    
+    try:
+        # PREENCHA AQUI - QUAL O COMANDO DELETAR UM USUÁRIO
+        cursor.execute('DELETE FROM usuarios WHERE email = ?',
+                       (email, ))
+        conexao.commit()
+        return True
+    except sqlite3.IntegrityError:
+        return False
+    finally:
+        conexao.close()
+
 def criar_projeto(id_usuario,destino,data_prevista,status,imagem,gastos,dinheiro_guardado):
     conexao = conectar_banco()
     cursor = conexao.cursor()
@@ -59,6 +75,8 @@ def buscar_viagens(id_usuario):
 if __name__ == '__main__': 
     conexao = conectar_banco()
     criar_tabelas ()
+    deletar_usuario("seugeronimo@email.com")
+    
     
 
     
